@@ -1,0 +1,35 @@
+.cabecera{
+	background-color: #87B6DA;
+	color: #fff;
+}
+
+.headTable{
+
+	background-color: #DEEDF8;
+	color: #1D5987;
+}
+
+.btn-editar{
+	cursor: pointer;
+	color:#217BC0;
+}
+
+.btnHeader{
+	height: 2rem;
+}
+
+.my-pagination /deep/ .ngx-pagination .current {
+  background: #87B6DA;
+  border-radius: 5px;
+}
+
+.ngx-pagination:hover{
+	text-decoration: none;
+}
+
+th,td{
+	margin-top:1px;
+	margin-bottom:1px;
+	padding-top: 1px;
+	padding-bottom: 1px;
+}

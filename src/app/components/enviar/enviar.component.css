@@ -1,0 +1,107 @@
+.align-rigth{
+  text-align: right;
+}
+
+.danger{
+  border: 1px red groove;
+}
+
+.morado{
+  color:#29176B;
+}
+
+.titulo{
+	background-color: #87B6DA;
+	color: #fff;
+}
+
+
+.headCotizacion{
+	background-color: #29176B;
+	border-radius: 1px;
+	color: #fff;
+}
+
+
+.btn-observaciones{
+	background-color: #FFFFFF;
+  border: 1px groove;
+	margin-left: 5px;
+	margin-right: 5px;
+	color: #000;
+	width:33.33%; 
+	border-radius:0;
+}
+
+.selected{
+	background-color: #87B6DA;
+	color:#FFF;
+  border: 1px #4C5C97 solid;
+
+}
+
+.btn-sigav{
+  color:#2E6EB6;
+  background-color: #DEEDF8;
+  border-radius: 4px;
+}
+
+.textObsLegal{
+  margin-left: 1%;
+  font-size: 12px !important;
+}
+
+.obsLegal{
+  padding-left: 1px;
+}
+
+.enviar{
+	background-color: #E9E9E9;
+}
+
+._margin{
+  margin-top:5em;
+}
+
+.footerBtn{
+  position: absolute;
+}
+
+
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+/*QUILL EDITOR*/
+quill-editor {
+  display: block;
+}
+.ng-invalid {
+  /*border: 1px dashed red;*/
+}
+/* Set default font-family */
+[quill-editor-element] {
+  font-family: "Roboto";
+}
+/* Set dropdown font-families */
+[quill-editor-toolbar] .ql-font span[data-label="Aref Ruqaa"]::before {
+  font-family: "Aref Ruqaa";
+}
+[quill-editor-toolbar] .ql-font span[data-label="Mirza"]::before {
+  font-family: "Mirza";
+}
+[quill-editor-toolbar] .ql-font span[data-label="Roboto"]::before {
+  font-family: "Roboto";
+}
+/* Set content font-families */
+.ql-font-mirza {
+  font-family: "Mirza";
+}
+.ql-font-aref {
+  font-family: "Aref Ruqaa";
+}
+/* We do not set Aref Ruqaa since it is the default font */

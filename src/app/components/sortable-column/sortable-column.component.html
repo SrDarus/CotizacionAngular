@@ -1,0 +1,6 @@
+<!--fa name="arrow-up" *ngIf="sortDirection === 'asc'"></fa>
+<fa name="arrow-up" *ngIf="sortDirection === 'desc'"></fa-->
+
+<i class="fa fa-chevron-up" *ngIf="sortDirection === 'asc'" ></i>
+<i class="fa fa-chevron-down" *ngIf="sortDirection === 'desc'"></i>
+<ng-content></ng-content>

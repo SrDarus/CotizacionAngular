@@ -1,0 +1,37 @@
+/* You can add global styles to this file, and also import other style files */
+*{
+	font-family: 'Arial';
+	font-size: 11px !important;
+}
+
+.main{
+	padding-left: 40px;
+	padding-right: 40px;
+}
+
+.no-margin{
+	margin: 0 !important;
+	padding: 0 !important;
+}
+
+.marginInicial{
+	padding-right: 50px;
+	padding-left: 50px;
+}
+
+.btn-nuevo{
+	color: #5cd053;
+	font-size: 12px !important;
+	font-weight: 900;
+}
+
+/*
+@media only screen and (max-device-width:768px){
+  
+  .marginInicial{
+
+	padding-right: 20px;
+	padding-left: 20px;
+  }
+}
+*/

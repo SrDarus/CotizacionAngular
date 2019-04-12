@@ -1,0 +1,86 @@
+<section class="container-fluid m-t-5">
+  <div class="row">
+    <div class="col-12 no-margin">
+      <div class="text-center text-success">
+        <small *ngIf="actionStatus">{{txtStatus}}</small>
+      </div>
+      <div class="cabecera b-t-r-5">
+        <select class="btnHeader b-r-5 m-l-5" [(ngModel)]="selectFilterSelected">
+          <option *ngFor="let filter of selectFilter" [ngValue]="filter">{{filter.nombre}}</option>
+        </select>
+        <input class="btnHeader m-l-5 b-r-5" type="text" #criteria (input)="updateCriteria(criteria.value)" placeholder="Buscar">
+        <button 
+          class="btn btn-header m-t-5 m-l-10 m-b-15" 
+          (click)="loadEnviar('0')">
+          <fa class="m-l-5" name="plus"></fa>
+          <b class="btn-nuevo m-r-5"> Nuevo</b>
+        </button>
+      </div>
+    </div>
+    <div class="col-12 no-margin">
+      <table class="table table-bordered" appSortableTable (sorted)="onSorted($event)">
+        <thead class="headTable">
+          <tr>
+            <th style="width: 5%" class="b-t-l-r-5" scope="col">#</th>
+            <th 
+              style="width: 5%" 
+              scope="col" 
+              sortable-column="idVentaCotizacionNew" 
+              sort-direction="asc">&nbsp;Id</th>
+            <th style="width: 8%" scope="col"  sortable-column="fechaViaje">&nbsp;Fecha</th>
+            <th style="width: 7%" scope="col">&nbsp;Estado</th>
+            <th style="width: 12%" scope="col"  sortable-column="cliente">&nbsp;Cliente</th>
+            <th style="width: 12%" scope="col"  sortable-column="vendedor">&nbsp;Vendedor</th>
+            <th style="width: 15%" scope="col"  sortable-column="pasajero">&nbsp;Pax</th>
+            <th style="width: 15%" scope="col"  sortable-column="destino">&nbsp;Destino</th>
+            <th style="width: 5%" scope="col"  sortable-column="montoTotalUSD">&nbsp;$ USD</th>
+            <th style="width: 5%" scope="col"  sortable-column="montoTotalCLP">&nbsp;$ CLP</th>
+            <th style="width: 11%" class="b-t-r-r-5" scope="col">Botones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr  *ngFor="let cot of cotizaciones | paginate: { itemsPerPage: rows, currentPage: currentP }; let i = index">
+            <th class="headTable" scope="row">{{1+i}}</th>
+            <td>{{cot.idVentaCotizacionNew}}</td>
+            <td>{{cot.fechaViaje}}</td>
+            <td class="text-center">
+              <span *ngIf="cot.idVentaEstadoCotizacionNew==1">Pendiente</span>
+              <span *ngIf="cot.idVentaEstadoCotizacionNew==2">Cerrado</span>
+              <span *ngIf="cot.idVentaEstadoCotizacionNew==3">Rechazado</span>
+            </td>
+            <td>{{cot.cliente}}</td>
+            <td>{{cot.vendedor}}</td>
+            <td>{{cot.pasajero}}</td>
+            <td>{{cot.destino}}</td>
+            <td class="text-right">{{cot.montoTotalUSD | number}}</td>
+            <td class="text-right">{{cot.montoTotalCLP | number}}</td>
+            <td class="text-center">
+              <button style="margin-right: 6px" class="btn-editar" (click)="loadEnviar(cot)" title="Editar Cotizacion"><fa class="" name="pencil"></fa> </button>
+              <button class="btn-editar" (click)="onCambiarEstado(cot.idVentaCotizacionNew,2)" title="Cambiar a Cerrado"><fa name="check"></fa> 
+              </button>&nbsp;
+              <button class="btn-editar" (click)="onCambiarEstado(cot.idVentaCotizacionNew,3)"><fa name="window-close"  title="Cambiar a Rechazado"></fa> 
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="row">
+        <div class="col-12 text-center">
+          <pagination-controls
+            class="my-pagination"
+            (pageChange)="currentP = $event"
+            maxSize="9"
+            directionLinks="true"
+            autoHide="true"
+            responsive="true"
+            previousLabel="Anterior"
+            nextLabel="Siguiente"
+            screenReaderPaginationLabel="Pagination"
+            screenReaderPageLabel="page"
+            screenReaderCurrentLabel="You're on page">
+          </pagination-controls>
+        </div>
+      </div>
+    </div>  
+  </div>
+</section>

@@ -1,0 +1,551 @@
+<section class="container-fluid m-t-5">
+	<div class="row">
+		<div class="col-12 titulo p-t-5 b-t-r-5">
+			<h4>Cotización</h4>
+		</div>
+		<div *ngIf="estadoMensaje" class="text-center text-success col-12 no-margin">
+			<h5>{{mensaje}}</h5>
+		</div>
+		<div class="col-12">
+			<form #formCotizacion="ngForm">
+				<!--COTIZACION-->
+				<div class="row form-group text-left m-t-10">
+					<!--CORREO-->
+					<div class="col-lg-3 col-md-6 col-12 bo1">
+						<div class="row">
+							<div class="col-md-12 titulo text-center m-b-5 p-t-5">
+								<h5>Correo</h5>
+							</div>
+							<!--CORREO PARA-->
+							<div class="col-2 p-l-5 p-r-5 m-b-5">
+								<label for="emailPara">Para</label>
+							</div>
+							<div class="col-10 p-l-5 p-r-5 m-b-5">
+								<input 
+									[(ngModel)]="cotizacion.emailPara" 
+									type="email" 
+									[ngClass]="{'danger':!email.valid}"
+									class="form-control mb-2 mr-sm-2 mb-sm-0" 
+									name="emailPara" 
+									placeholder="Ingrese un correo"
+					  				#email="ngModel"
+					  				email
+					  				required>
+							</div>
+							<!--CORREO COPIA-->
+							<div class="col-2 p-l-5 p-r-5 m-b-5">
+								<label for="correoCopia">Copia</label>
+							</div>
+							<div class="col-10 p-l-5 p-r-5 m-b-5">
+								<input 
+									[(ngModel)]="cotizacion.emailCopia"
+									type="email" 
+									class="form-control mb-2 mr-sm-2 mb-sm-0"
+									[ngClass]="{'danger':!email2.valid}" 
+									name="correoCopia" 
+									placeholder="Confirme el correo"
+					  				#email2="ngModel"
+					  				email
+					  				required>
+							</div>
+							<!--IMAGEN-->
+							<div class="col-2 p-l-5 p-r-5 m-b-5">
+								<label for="cbImagen">Imagen</label>
+							</div>
+							<!--div class="col-10 p-l-5 p-r-5 m-b-5">
+					  			<ng-select 
+					  				name="cbPaises"
+									[items]="imagenes"
+								    bindLabel="nombre"
+								    bindValue="id"
+								    [multiple]="true"
+								    placeholder="seleccione un pais..."
+								    [(ngModel)]="imagenSelected">
+								</ng-select>
+								{{imagenSelected}}
+							</div-->
+							<div class="col-10 p-l-5 p-r-5 m-b-5">
+					  			<ng-select 
+								    [(ngModel)]="imagenSelected"
+								    name="imagen"
+								    placeholder="Seleccione una imagen...">
+					  				<ng-option 
+					  					*ngFor="let img of imagenes" 
+					  					[value]="img.id" 
+					  					[disabled]="img.disabled">{{img.nombre}}
+					  				</ng-option>
+								</ng-select>
+							</div>
+							<div class="col-2 p-l-5 p-r-5 m-b-5">Destino</div>
+							<div class="col-10 p-l-5 p-r-5 m-b-5">
+								<input type="text" 
+									[(ngModel)]="cotizacion.destino" 
+									class="form-control"
+									[ngClass]="{'danger':!destino.valid}"  
+									#destino="ngModel"
+									name="destino"
+									placeholder="Ingrese un destino..."
+									required>
+							</div>
+						</div>
+					</div>
+					<!--DATOS-->
+					<div class="col-lg-4 col-md-6 col-12 bo1">
+						<div class="row">
+							<div class="col-md-12 titulo text-center m-b-5 p-t-5">
+								<h5>Datos</h5>
+							</div>
+							<div class="col-3 p-l-5 p-r-5 m-b-5">Fecha</div>
+							<div class="col-9 p-l-5 p-r-5 m-b-5">
+								<input 
+									type="date"
+									[(ngModel)]="cotizacion.fechaViaje"
+									class="form-control"
+									[ngClass]="{'danger':!fecha.valid}" 
+									name="fecha"
+									#fecha="ngModel"
+									required>
+							</div>
+							<div class="col-3 p-l-5 p-r-5 m-b-5">Cliente</div>
+							<div class="col-9 p-l-5 p-r-5 m-b-5">
+								<input 
+									type="text" 
+									[(ngModel)]="cotizacion.cliente" 
+									class="form-control" 
+									[ngClass]="{'danger':!cliente.valid}" 
+									name="cliente"
+									#cliente="ngModel"
+									placeholder="Ingrese un cliente..."
+									required>
+							</div>
+			
+							<div class="col-3 p-l-5 p-r-5 m-b-5">Vendedor</div>
+							<div class="col-9 p-l-5 p-r-5 m-b-5">
+								<input type="text" 
+									[(ngModel)]="cotizacion.vendedor" 
+									class="form-control"
+									[ngClass]="{'danger':!vendedor.valid}"  
+									name="vendedor"
+									#vendedor="ngModel"
+									placeholder="Ingrese un vendedor..."
+									required>
+							</div>
+							<div class="col-3 p-l-5 p-r-5 m-b-5">Pax</div>
+							<div class="col-9 p-l-5 p-r-5 m-b-5">
+								<input type="text" 
+									[(ngModel)]="cotizacion.pasajero" 
+									class="form-control"
+									[ngClass]="{'danger':!pasajero.valid}"  
+									#pasajero="ngModel"
+									name="pasajero"
+									placeholder="Ingrese un pasajero..."
+									required>
+							</div>
+							<!--TIPO CAMBIO-->
+							<div class="col-3 p-l-5 p-r-5 m-b-5">
+								<label for="tipoCambio">Tipo cambio</label>
+							</div>
+							<div class="col-9 p-l-5 p-r-5 m-b-5">
+								<input 
+									[(ngModel)]="cotizacion.tipoCambio" 
+									type="text" 
+									class="form-control mb-2 mr-sm-2 mb-sm-0" 
+									[ngClass]="{'danger':!tipoCambio.valid}" 
+									name="tipoCambio" 
+									placeholder="Escoja un tipo de cambio"
+									#tipoCambio="ngModel"
+									(input)="updateValues()"
+									required>
+							</div>
+						</div>
+					</div>
+
+					<!--VALORES-->
+					<div class="col-lg-5 col-12">
+						<div class="row">
+							<!--VALORES USD-->
+							<div class="col-6 bo1">
+								<div class="row">
+									<div class="col-md-12 titulo text-center m-b-5 p-t-5">
+										<h5>Valores USD</h5>
+									</div>
+									<div class="col-md-5 p-l-5 p-r-5">Aereo <b class="float-right">USD</b></div>
+									<div class="col-md-7 p-l-5 p-r-5">
+										<input 
+											type="number"
+											[(ngModel)]="cotizacion.montoAereoUSD"
+											name="aereoUSD"
+											class="form-control align-rigth"
+											(click)="$event.target.select()"
+											(input)="calcularTotalUSD()"
+											appTwoDecimal
+											placeholder="USD 0">
+									</div>
+									<div class="col-md-5 p-l-5 p-r-5">Terrestre <b class="float-right">USD</b></div>
+									<div class="col-md-7 p-l-5 p-r-5">
+										<input 
+											type="number"
+											[(ngModel)]="cotizacion.montoTerrestreUSD"
+											name="terrestreUSD"
+											class="form-control align-rigth"
+											(click)="$event.target.select()"
+											(input)="calcularTotalUSD()"
+											appTwoDecimal
+											placeholder="USD 0">
+									</div>
+									<div class="col-md-5 p-l-5 p-r-5">Cargo <b class="float-right">USD</b></div>
+									<div class="col-md-7 p-l-5 p-r-5">
+										<input 
+											type="number"
+											[(ngModel)]="cotizacion.montoCargoUSD"
+											name="cambioUSD"
+											class="form-control align-rigth"
+											(click)="$event.target.select()"
+											(input)="calcularTotalUSD()"
+											appTwoDecimal
+											placeholder="USD 0">
+									</div>
+									<div class="col-md-5 p-l-5 p-r-5">Total <b class="float-right">USD</b></div>
+									<div class="col-md-7 p-l-5 p-r-5">
+										<input 
+											type="number"
+											[(ngModel)]="cotizacion.montoTotalUSD"
+											name="totalUSD"
+											class="form-control align-rigth"
+											(click)="$event.target.select()"
+											placeholder="USD 0"
+											[disabled]="true">
+									</div>
+								</div>
+							</div>
+
+							<!--VALORES CLP-->
+							<div class="col-6 bo1">
+								<div class="row">
+									<div class="col-md-12 titulo text-center m-b-5 p-t-5">
+										<h5>Valores CLP</h5>
+									</div>
+									<div class="col-md-5 p-l-5 p-r-5">Aereo <fa class="float-right" name="dollar"></fa></div>
+									<div class="col-md-7 p-l-5 p-r-5">
+										<input 
+											type="number" 
+											[(ngModel)]="cotizacion.montoAereoCLP"
+											name="aereoCLP"
+											class="form-control align-rigth" 
+											(click)="$event.target.select()"
+											(input)="calcularTotalCLP()"
+											appCeroDecimal
+											placeholder="CLP 0">
+									</div>
+									<div class="col-md-5 p-l-5 p-r-5">Terrestre <fa class="float-right" name="dollar"></fa></div>
+									<div class="col-md-7 p-l-5 p-r-5">
+										<input 
+											type="number" 
+											[(ngModel)]="cotizacion.montoTerrestreCLP"
+											name="terrestreCLP"
+											class="form-control align-rigth" 
+											(click)="$event.target.select()"
+											(input)="calcularTotalCLP()"
+											appCeroDecimal
+											placeholder="CLP 0">
+									</div>
+									<div class="col-md-5 p-l-5 p-r-5">Cargo <fa class="float-right" name="dollar"></fa></div>
+									<div class="col-md-7 p-l-5 p-r-5">
+										<input 
+											type="number" 
+											[(ngModel)]="cotizacion.montoCargoCLP"
+											name="cargoCLP"
+											class="form-control align-rigth" 
+											(click)="$event.target.select()"
+											(input)="calcularTotalCLP()"
+											appCeroDecimal
+											placeholder="CLP 0">
+									</div>
+									<div class="col-md-5 p-l-5 p-r-5">Total <fa class="float-right" name="dollar"></fa></div>
+									<div class="col-md-7 p-l-5 p-r-5">
+										<input 
+											type="number" 
+											[(ngModel)]="cotizacion.montoTotalCLP"
+											name="totalCLP"
+											class="form-control align-rigth" 
+											(click)="$event.target.select()"
+											placeholder="CLP 0"
+											[disabled]="true">
+									</div>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+
+				</div>
+			
+				
+				<!--OBSERVACIONES-->
+				<div class="row">
+					<div class="col-12 no-margin">
+						<div  class="btn-group w-100 p-t-3" role="group" aria-label="botones observacion">
+							<button 
+								class="btn btn-observaciones" 
+								style="border-top-left-radius: 4px;border-top-right-radius: 4px;" 
+								(click)="changeObservacion('a')"
+								[ngClass]="{'selected':!actionAereo}">Aereo</button>
+							<button 
+								class="btn btn-observaciones" 
+								style="border-top-left-radius: 4px;border-top-right-radius: 4px;" 
+								(click)="changeObservacion('t')"
+								[ngClass]="{'selected':!actionTerrestre}">Terrestre</button>
+							<button 
+								class="btn btn-observaciones" 
+								style="border-top-left-radius: 4px;border-top-right-radius: 4px; margin-right: 0" 
+								(click)="changeObservacion('o')"
+								[ngClass]="{'selected':!actionObservaciones}">Legal</button>
+						</div>
+						<!--AEREO-->
+						<div [@openClose] *ngIf="!actionAereo" class="col-12 form-group no-margin">
+							<quill-editor 
+							  	#editorAereo 
+							  	[ngStyle]="{'height': '30vh'}"
+							  	[style.display]="hide ? 'none' : 'block'" 
+							  	[formControl]="form.controls['editorAereo']">
+						  </quill-editor>
+						</div>
+						<!--TERRESTRE-->
+						<div [@openClose] *ngIf="!actionTerrestre" class="col-12 form-group no-margin">
+							<quill-editor 
+							  	#editorTerrestre 
+							  	[ngStyle]="{'height': '30vh'}"
+							  	[style.display]="hide ? 'none' : 'block'" 
+							  	[formControl]="form.controls['editorTerrestre']">
+						    </quill-editor>
+						</div>
+						<!--OBSERVACIONES-->
+						<!--div [@openClose] *ngIf="!actionObservaciones" class="col-12 form-group no-margin">
+							<quill-editor 
+							  	#editorObservacion 
+							  	[ngStyle]="{'height': '35vh'}"
+							  	[style.display]="hide ? 'none' : 'block'" 
+							  	[formControl]="form.controls['editorObservacion']">
+						    </quill-editor>
+						</div-->
+						<div [@openClose] *ngIf="!actionObservaciones" class="col-12 form-group no-margin bo1 obsLegal" style="">
+							<br>
+							<span style="margin-left: 1%; padding-top:5%;"><b>TERMINOS Y CONDICIONES.</b></span>
+							<br>
+					        <label class="textObsLegal" >
+					        	Estos valores son referenciales y pueden variar, sin previo aviso debido a regulaciones tarifarias de las respectivas empresas de transportes, líneas aéreas y hoteles.<br>
+					        	Las tarifas referenciales no garantizadas.<br>
+					        	Los valores referenciales no aplican para temporada alta o fines de semana largos.<br>
+					        	Cotización sujeta a disponibilidad de espacios, tanto en cuanto a pasajes aéreos como disponibilidad hotelera.<br>
+					        	Todo cambio o devolución está sujeta a multas y restricciones por parte de los proveedores, detallados en las condiciones específicas de cada compra.<br>
+					        	Valores no incluyen cargo de combustibles, de seguridad y tasas de aeropuerto y embarque.<br>
+					        	Es de responsabilidad exclusiva del cliente tener sus documentos al día (cédula de identidad, pasaporte si lo requiere, permiso notarial si viaja con  menores de 18 años) antes de su viaje.<br>
+					        	Es responsabilidad del cliente consultar a su ejecutivo por la tramitación de visas, vacunas que se requieran, y requerimientos particulares,  dependiendo del destino.
+					        </label>
+					        <br>
+						</div>
+
+					</div>
+				</div>
+				
+				<!--BOTONES-->
+				<div class="row m-t-70">
+					<div class=" col-12">
+						<button (click)="volver()" class="btn btn-sigav m-1 float-right">
+							<fa name="times"></fa>
+							Cerrar
+						</button>
+						<!--button-->
+						<button
+							[disabled]="!formCotizacion.valid" 
+							type="button" 
+							class="btn btn-sigav m-1 float-right"
+							(click)="grabarCotizacion()">
+							<fa name="envelope"></fa>
+							Enviar
+						</button>
+						<button 
+							#btnEnviar
+							[hidden]="true"
+							data-toggle="modal" 
+							data-target="#modalPrevisualizacion">
+							
+						</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</section>
+
+<!-- Modal -->
+<div class="modal fade" id="modalPrevisualizacion" tabindex="-1" role="dialog" aria-labelledby="labelModalPrevisualiacion" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+	    		<label for="correoParaM">Correo Para</label>
+	    		<input type="text" class="m-l-3 m-r-3 m-b-3" id="correoParaM" [(ngModel)]="cotizacion.emailPara">
+	    		<label for="correoCopiaM">Coreo Copia</label>
+	    		<input type="text" class="m-l-3 m-r-3 m-b-3" id="correoCopiaM" [(ngModel)]="cotizacion.emailCopia">
+        <div>
+			<button type="button" class="btn btn-sigav float-right" data-dismiss="modal" aria-label="Close">
+				<fa name="times"></fa>
+				Cerrar
+			</button>
+			<button type="button" class="btn btn-sigav float-right m-r-3" (click)="enviarCorreo()">
+				<fa name="envelope-square"></fa>
+				Enviar Correo
+			</button>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+        	<div class="col-12">
+        		<div class="row">
+        			<div class="col-6">
+        				<!--img src="/assets/images/viajesAndina.jpg" alt="" width="190em" height="50em"-->
+        				<img src="/cotizacion/assets/images/viajesAndina.jpg" alt="" width="190em" height="50em">
+        			</div>
+        			<div class="col-6">
+						<h2 class="text-right morado">Cotizacion: {{cotizacion.idVentaCotizacionNew}}</h2>
+						<h4 class="text-right morado">Valor Tipo Cambio: {{cotizacion.tipoCambio}}</h4>
+        			</div>
+        		</div>
+        	</div>
+
+			<!--DATOS-->
+        	<div class="col-6">
+				<div class="row">
+					<div class="col-11 headCotizacion mx-auto text-center p-t-3">
+						<h5>Datos</h5>
+					</div>
+					<div class="col-3 m-l-5">Fecha:</div>
+					<div class="col-8">
+						{{cotizacion.fechaViaje}}
+					</div>
+					<div class="col-3 m-l-5">Cliente:</div>
+					<div class="col-8">
+						{{cotizacion.cliente}}
+					</div>
+					<div class="col-3 m-l-5">Vendedor:</div>
+					<div class="col-8">
+						{{cotizacion.vendedor}}
+					</div>
+					<div class="col-3 m-l-5">Pax:</div>
+					<div class="col-8">
+						{{cotizacion.pasajero}}
+					</div>
+					<div class="col-3 m-l-5">Destino:</div>
+					<div class="col-8">
+						{{cotizacion.destino}}
+					</div>
+				</div>
+			</div>
+			<!--VALORES USD-->
+			<div class="col-3">
+				<div class="row">
+					<div class="col-11 headCotizacion mx-auto text-center p-t-3">
+						<h5>Valores USD</h5>
+					</div>
+					<div class="col-md-6">Aereo <b class="float-right">USD</b></div>
+					<div class="col-md-5 text-right">
+						{{cotizacion.montoAereoUSD}}
+					</div>
+					<div class="col-md-6">Terrestre <b class="float-right">USD</b></div>
+					<div class="col-md-5 text-right">
+						{{cotizacion.montoTerrestreUSD}}
+					</div>
+					<div class="col-md-6">Cargo <b class="float-right">USD</b></div>
+					<div class="col-md-5 text-right">
+						{{cotizacion.montoCargoUSD}}
+					</div>
+					<div class="col-md-6">Total <b class="float-right">USD</b></div>
+					<div class="col-md-5 text-right">
+						{{cotizacion.montoTotalUSD}}
+					</div>
+				</div>
+			</div>
+			<div class="col-3">
+				<!--VALORES CLP-->
+				<div class="row">
+					<div class="col-11 headCotizacion mx-auto text-center p-t-3">
+						<h5>Valores CLP</h5>
+					</div>
+					<div class="col-md-6">Aereo <fa class="float-right" name="dollar"></fa></div>
+					<div class="col-md-5 text-right">
+						{{cotizacion.montoAereoCLP | number}}
+					</div>
+					<div class="col-md-6">Terrestre <fa class="float-right" name="dollar"></fa></div>
+					<div class="col-md-5 text-right">
+						{{cotizacion.montoTerrestreCLP | number}}
+					</div>
+					<div class="col-md-6">Cargo <fa class="float-right" name="dollar"></fa></div>
+					<div class="col-md-5 text-right">
+						{{cotizacion.montoCargoCLP | number}}
+					</div>
+					<div class="col-md-6">Total <fa class="float-right" name="dollar"></fa></div>
+					<div class="col-md-5 text-right">
+						{{cotizacion.montoTotalCLP | number}}
+					</div>
+				</div>
+			</div>
+			<!--IMAGENES-->
+			<div class="col-12 m-t-10">
+				<!--img [src]="imagenUrl" width="auto" height="100" alt=""-->
+			</div>
+			<!--OBSERVACION AEREO-->
+			<div class="col-12 m-t-10">
+				<div class="col-12 headCotizacion">
+					<h5>Aereo</h5>
+				</div>
+				<div class="col-12">
+					<div [innerHTML]="obsAereo">
+						
+					</div>
+				</div>
+			</div>
+			<!--OBSERVACION TERRESTRE-->
+			<div class="col-12">
+				<div class="col-12 headCotizacion">
+					<h5>Terrestre</h5>
+				</div>
+				<div class="col-12">
+					<div [innerHTML]="obsTerrestre">
+						
+					</div>
+				</div>
+			</div>
+			<!--OBSERVACIONES-->
+			<div class="col-12">
+				<div class="col-12 headCotizacion">
+					<h5>Observaciones</h5>
+				</div>
+				<div class="col-12">
+					<div [innerHTML]="obsLegal">
+						
+					</div>
+				</div>
+			</div>
+        </div>
+      </div>
+      <div class="modal-footer">
+			<button type="button" class="btn btn-sigav float-right m-r-3" (click)="enviarCorreo()">
+				<fa name="envelope-square"></fa>
+				Enviar Correo
+			</button>
+			<button type="button" class="btn btn-sigav float-right" data-dismiss="modal" aria-label="Close">
+				<fa name="times"></fa>
+				Cerrar
+			</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
